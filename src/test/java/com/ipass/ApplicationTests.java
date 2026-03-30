@@ -1,4 +1,4 @@
-package com.ipass_test;
+package com.ipass;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

@@ -8,6 +8,8 @@ import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.UUID;
+
 @Service
 @AllArgsConstructor
 @Transactional
@@ -24,5 +26,9 @@ public class UserService {
 		UserModel user = UserModel.builder().name(cmd.getName()).email(cmd.getEmail()).build();
 
 		return userRepository.save(user);
+	}
+
+	public UserModel findById(UUID id) {
+		return userRepository.findByIdOrThrowNotFound(id);
 	}
 }
