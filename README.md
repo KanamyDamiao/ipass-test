@@ -146,14 +146,3 @@ ipass-test
 ```
 
 ---
-
-# Observações
-
-Este projeto foi criado com o objetivo de servir como base para evoluções futuras, como:
-
-* arquitetura baseada em **microsserviços**
-* comunicação assíncrona com **RabbitMQ**
-* implementação de **event-driven architecture**
-* utilização de padrões como **CQRS**
-
----
