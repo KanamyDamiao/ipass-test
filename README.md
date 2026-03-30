@@ -21,7 +21,7 @@ simples que permita evoluir para arquiteturas baseadas em **microsserviços e ev
 
 | Serviço         | Porta padrão | Observação                                                                                                       |
 |-----------------|-------------:|------------------------------------------------------------------------------------------------------------------|
-| API Spring Boot |       `8080` | Acesso local em `http://localhost:8080`                                                                          |
+| API Spring Boot |       `8080` | Acesso local em `http://localhost:8080/swagger-ui/index.html#/`                                                  |
 | PostgreSQL      |       `5433` | Banco usado no ambiente Docker e local (porta 5433 para evitar conflito com um PostgreSQL já rodando na máquina) |
 
 > As portas podem ser alteradas nas configurações do projeto, como `docker-compose.yml` e
@@ -144,5 +144,3 @@ ipass-test
          └── resources
              └── application.properties
 ```
-
----
