@@ -10,7 +10,9 @@ build:
 
 # Subir projeto completo com docker
 docker-up:
-	docker compose up --build
+	make docker-db
+	make build
+	docker compose up --build -d
 
 # Subir apenas banco
 docker-db:
@@ -24,7 +26,7 @@ docker-down:
 docker-reset:
 	docker compose down -v
 
-# Rebuild completo
+# Rebuild completo (rebuild Maven + Docker)
 rebuild:
 	mvn clean package
 	docker compose up --build
