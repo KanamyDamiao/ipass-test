@@ -64,15 +64,25 @@ sudo apt install build-essential
 
 # Fluxos de uso
 
+> **Importante:** Para que os comandos `make build`, `make rebuild` e `make run` funcionem corretamente, o **container
+do banco de dados precisa estar em execução**. O primeiro passo do setup deve ser sempre subir o banco com
+`make docker-db` (ou `make docker-up`, caso queira todo o ambiente via Docker).
+
 ## Executar localmente (sem Docker)
 
-1. Gerar o build do projeto
+1. Subir o banco de dados via Docker (primeiro passo do setup)
+
+```
+make docker-db
+```
+
+2. Gerar o build do projeto
 
 ```
 make build
 ```
 
-2. Executar a aplicação
+3. Executar a aplicação
 
 ```
 make run
@@ -83,6 +93,9 @@ A aplicação ficará disponível em:
 ```
 http://localhost:8080
 ```
+
+> Observação: Os comandos `make build`, `make rebuild` e `make run` assumem que o banco já está rodando. Se o container
+> não estiver ativo, a aplicação pode falhar ao tentar conectar ao PostgreSQL.
 
 ---
 
