@@ -20,5 +20,7 @@ public interface SubtaskRepository extends JpaRepository<SubtaskModel, UUID> {
 	List<SubtaskModel> findByTarefaId(UUID tarefaId);
 
 	List<SubtaskModel> findByTarefaIdAndStatusNot(UUID tarefaId, SubtaskStatus status);
+
+	List<SubtaskModel> findByTarefaIdAndStatus(UUID tarefaId, SubtaskStatus status);
 }
 

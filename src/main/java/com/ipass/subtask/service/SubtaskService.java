@@ -32,6 +32,10 @@ public class SubtaskService {
 		return subtaskRepository.findByTarefaId(tarefaId);
 	}
 
+	public List<SubtaskModel> findByTarefaIdAndStatus(UUID tarefaId, SubtaskStatus status) {
+		return subtaskRepository.findByTarefaIdAndStatus(tarefaId, status);
+	}
+
 	public SubtaskModel updateStatus(UUID id, SubtaskStatus novoStatus) {
 		SubtaskModel subtask = subtaskRepository.findByIdOrThrowNotFound(id);
 		SubtaskModel atualizado = subtask.atualizarStatus(novoStatus);

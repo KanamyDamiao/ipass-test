@@ -56,6 +56,17 @@ public class SubtaskController {
 		return ResponseEntity.ok(responses);
 	}
 
+	@Operation(description = "Lista subtarefas de uma tarefa filtradas por status", method = "GET")
+	@ApiResponses(value = { @ApiResponse(responseCode = "200", description = "Subtarefas listadas com sucesso."),
+			@ApiResponse(responseCode = "400", description = "Requisição inválida.") })
+	@GetMapping("/tarefas/{tarefaId}/subtarefas/pesquisa")
+	public ResponseEntity<List<SubtaskResponse>> listSubtasksByStatus(@PathVariable UUID tarefaId,
+																   @RequestParam("status") SubtaskStatus status) {
+		var subtasks = service.findByTarefaIdAndStatus(tarefaId, status);
+		var responses = subtasks.stream().map(SubtaskMapper::toResponse).toList();
+		return ResponseEntity.ok(responses);
+	}
+
 	@Operation(description = "Atualiza o status de uma subtarefa", method = "PATCH")
 	@ApiResponses(value = { @ApiResponse(responseCode = "200", description = "Status atualizado com sucesso."),
 			@ApiResponse(responseCode = "400", description = "Status não pode ser atualizado.") })
