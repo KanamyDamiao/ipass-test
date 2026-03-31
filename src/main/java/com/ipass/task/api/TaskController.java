@@ -55,6 +55,17 @@ public class TaskController {
 		return ResponseEntity.ok(responses);
 	}
 
+	@Operation(description = "Lista tarefas filtradas por status e usuário", method = "GET")
+	@ApiResponses(value = { @ApiResponse(responseCode = "200", description = "Tarefas listadas com sucesso."),
+			@ApiResponse(responseCode = "400", description = "Requisição inválida.") })
+	@GetMapping("/pesquisa")
+	public ResponseEntity<List<TaskResponse>> listTasksByStatusAndUser(@RequestParam("status") TaskStatus status,
+																	   @RequestParam("usuarioId") UUID usuarioId) {
+		var tasks = service.findByStatusAndUsuarioId(status, usuarioId);
+		var responses = tasks.stream().map(TaskMapper::toResponse).toList();
+		return ResponseEntity.ok(responses);
+	}
+
 	@Operation(description = "Atualiza o status de uma tarefa", method = "PATCH")
 	@ApiResponses(value = { @ApiResponse(responseCode = "200", description = "Status atualizado com sucesso."),
 			@ApiResponse(responseCode = "400", description = "Status não pode ser atualizado.") })

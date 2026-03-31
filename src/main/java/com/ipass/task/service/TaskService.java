@@ -43,6 +43,10 @@ public class TaskService {
 		return taskRepository.findByStatus(status);
 	}
 
+	public List<TaskModel> findByStatusAndUsuarioId(TaskStatus status, UUID usuarioId) {
+		return taskRepository.findByStatusAndUsuarioId(status, usuarioId);
+	}
+
 	public TaskModel updateStatus(UUID id, TaskStatus novoStatus) {
 		TaskModel task = taskRepository.findByIdOrThrowNotFound(id);
 
