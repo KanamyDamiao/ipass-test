@@ -1,6 +1,7 @@
 package com.ipass.user.api;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.ipass.config.BaseIntegrationTest;
 import com.ipass.user.api.dto.request.CreateUserRequest;
 import com.ipass.user.domain.UserModel;
 import com.ipass.user.repository.UserRepository;
@@ -8,7 +9,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
@@ -23,8 +23,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@SpringBootTest
-class UserControllerTest {
+class UserControllerTest extends BaseIntegrationTest {
 
 	@Autowired
 	private WebApplicationContext context;
