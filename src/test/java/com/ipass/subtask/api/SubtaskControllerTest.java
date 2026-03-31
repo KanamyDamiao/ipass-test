@@ -94,6 +94,38 @@ class SubtaskControllerTest extends BaseIntegrationTest {
 	}
 
 	@Test
+	@DisplayName("Listar subtarefas de uma tarefa filtradas por status")
+	void shouldListSubtasksByTaskAndStatus() throws Exception {
+		// given
+		UUID tarefaId = UUID.randomUUID();
+		SubtaskModel sub1 = new SubtaskModel(UUID.randomUUID(),
+											 "Sub 1",
+											 "Desc",
+											 SubtaskStatus.PENDENTE,
+											 LocalDateTime.now(),
+											 null,
+											 tarefaId);
+		SubtaskModel sub2 = new SubtaskModel(UUID.randomUUID(),
+											 "Sub 2",
+											 "Desc",
+											 SubtaskStatus.CONCLUIDA,
+											 LocalDateTime.now(),
+											 LocalDateTime.now(),
+											 tarefaId);
+		subtaskRepository.save(sub1);
+		subtaskRepository.save(sub2);
+
+		// when // then
+		mockMvc.perform(get("/tarefas/" + tarefaId + "/subtarefas/pesquisa").param("status",
+																				   SubtaskStatus.CONCLUIDA.name()))
+			   .andExpect(status().isOk())
+			   .andExpect(jsonPath("$", hasSize(1)))
+			   .andExpect(jsonPath("$[0].titulo", is("Sub 2")))
+			   .andExpect(jsonPath("$[0].status", is(SubtaskStatus.CONCLUIDA.name())))
+			   .andExpect(jsonPath("$[0].tarefaId", is(tarefaId.toString())));
+	}
+
+	@Test
 	@DisplayName("Atualizar status da subtarefa para CONCLUIDA via controller")
 	void shouldUpdateSubtaskStatusToCompletedInController() throws Exception {
 		// given

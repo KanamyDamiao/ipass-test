@@ -100,6 +100,39 @@ class TaskControllerTest extends BaseIntegrationTest {
 	}
 
 	@Test
+	@DisplayName("Listar tarefas filtradas por status e usuario")
+	void shouldListTasksByStatusAndUser() throws Exception {
+		// given
+		UUID usuarioId1 = UUID.randomUUID();
+		UUID usuarioId2 = UUID.randomUUID();
+		TaskModel pendenteUser1 = new TaskModel(UUID.randomUUID(),
+												"Tarefa Pendente U1",
+												"Desc",
+												TaskStatus.PENDENTE,
+												LocalDateTime.now(),
+												null,
+												usuarioId1);
+		TaskModel pendenteUser2 = new TaskModel(UUID.randomUUID(),
+												"Tarefa Pendente U2",
+												"Desc",
+												TaskStatus.PENDENTE,
+												LocalDateTime.now(),
+												null,
+												usuarioId2);
+		taskRepository.save(pendenteUser1);
+		taskRepository.save(pendenteUser2);
+
+		// when // then
+		mockMvc.perform(get("/tarefas/pesquisa").param("status", TaskStatus.PENDENTE.name())
+												.param("usuarioId", usuarioId1.toString()))
+			   .andExpect(status().isOk())
+			   .andExpect(jsonPath("$", hasSize(1)))
+			   .andExpect(jsonPath("$[0].titulo", is("Tarefa Pendente U1")))
+			   .andExpect(jsonPath("$[0].status", is(TaskStatus.PENDENTE.name())))
+			   .andExpect(jsonPath("$[0].usuarioId", is(usuarioId1.toString())));
+	}
+
+	@Test
 	@DisplayName("Nao permitir concluir tarefa com subtarefas pendentes")
 	void shouldNotAllowCompletingTaskWithPendingSubtasks() throws Exception {
 		// given
