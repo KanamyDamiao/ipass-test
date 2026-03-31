@@ -48,5 +48,17 @@ public class SubtaskModel {
 		this.status = SubtaskStatus.PENDENTE;
 		this.dataCriacao = LocalDateTime.now();
 	}
+
+	public SubtaskModel atualizarStatus(SubtaskStatus novoStatus) {
+		return new SubtaskModel(
+				this.id,
+				this.titulo,
+				this.descricao,
+				novoStatus,
+				this.dataCriacao,
+				novoStatus == SubtaskStatus.CONCLUIDA ? LocalDateTime.now() : null,
+				this.tarefaId
+		);
+	}
 }
 
